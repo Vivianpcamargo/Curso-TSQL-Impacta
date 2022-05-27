@@ -1,11 +1,11 @@
 -- Banco Sisdep
 use SisDep;
--- Função IIF-CHOOSE
+-- FunÃ§Ã£o IIF-CHOOSE
 select
 	NomeFuncionario
 	,Admissao
 	,Salario
-	,IIF(salario <= 2000,'Reajuste','') As [Análise Salarial]
+	,IIF(salario <= 2000,'Reajuste','') As [Anï¿½lise Salarial]
 from funcionario;
 
 begin tran;
@@ -13,9 +13,9 @@ begin tran;
 	set salario *= IIF(salario <= 2000,1.1,1.05)
 	output
 		deleted.NomeFuncionario
-		,deleted.Salario	as [Salário Anterior]
+		,deleted.Salario	as [Salï¿½rio Anterior]
 		,inserted.Salario	as [Novo Salario]
-		,inserted.Salario / deleted.Salario	as [Índice]
+		,inserted.Salario / deleted.Salario	as [ï¿½ndice]
 commit;
 
 SELECT
@@ -37,8 +37,8 @@ select
 	,NomeFuncionario
 	,Admissao
 	,Salario
-	,LAG(Admissao,1,0)	Over(Order By idMatricula)	As [Admissão Anterior]
-	,LEAD(Admissao,1,0)	Over(Order by idMatricula)	As [Admissão Posterior],
+	,LAG(Admissao,1,0)	Over(Order By idMatricula)	As [Admissï¿½o Anterior]
+	,LEAD(Admissao,1,0)	Over(Order by idMatricula)	As [Admissï¿½o Posterior],
 	DATEDIFF(DAY,Admissao,LAG(Admissao,1,0)	Over(Order By idMatricula))
 from Funcionario;
 
@@ -47,8 +47,8 @@ select
 	,NomeFuncionario
 	,Admissao
 	,Salario
-	,LAG(Admissao,1,0)	Over(Order By idMatricula)	As [Admissão Anterior]
-	,LEAD(Admissao,1,0)	Over(Order by idMatricula)	As [Admissão Posterior],
+	,LAG(Admissao,1,0)	Over(Order By idMatricula)	As [Admissï¿½o Anterior]
+	,LEAD(Admissao,1,0)	Over(Order by idMatricula)	As [Admissï¿½o Posterior],
 	DATEDIFF(DAY,Admissao,LAG(Admissao,1,0)	Over(Order By idMatricula))
 from Funcionario;
 
@@ -57,7 +57,7 @@ from Funcionario;
 select * from Funcionario
 order by idMatricula
 offset 0 rows fetch next 20 rows only;
--- 10 linhas a partir da 30ª
+-- 10 linhas a partir da 30Âº
 select * from Funcionario
 order by idMatricula
 offset 30 rows fetch next 10 rows only;
