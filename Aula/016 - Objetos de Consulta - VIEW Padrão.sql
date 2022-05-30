@@ -130,26 +130,6 @@ ALTER COLUMN Cpf nvarchar(11);
 ALTER TABLE Funcionario
 ALTER COLUMN NomeFuncionario nvarchar(50);
 
--- CHECK OPTION (Restrição de Entrada de Dados)
-GO
-CREATE VIEW vw_NovaLocalidadeSP
-AS
-	SELECT idLocalidade,Uf,Cidade FROM Localidade
-	WHERE Uf = 'SP'
-WITH CHECK OPTION;
-GO 
--- Testando
--- Vai dar erro
-INSERT INTO vw_NovaLocalidadeSP
-(idLocalidade,Uf,Cidade)
-VALUES
-(12,'RJ','Parati');
---Vai Funcionar
-INSERT INTO vw_NovaLocalidadeSP
-(idLocalidade,Uf,Cidade)
-VALUES
-(12,'SP','Ribeirão Preto');
-
 -- Excluir uma View
 DROP VIEW vw_NovaLocalidadeSP;
 
@@ -170,19 +150,3 @@ AS
 	ORDER BY 2
 GO
 SELECT * FROM vw_Enderecos;
-
--- VIEW INDEXADA (Obter Melhor Performance)
-GO
-CREATE VIEW vw_ConsultaSimples
-WITH SCHEMABINDING
-AS
-	SELECT
-		idMatricula,NomeFuncionario,Admissao,Salario
-	FROM dbo.Funcionario;
-GO
-CREATE UNIQUE CLUSTERED INDEX IX_ConsultaSimples
-ON dbo.vw_ConsultaSimples(NomeFuncionario,Admissao);
-
-SELECT * FROM vw_ConsultaSimples
-WHERE NomeFuncionario LIKE 'C%';
-
