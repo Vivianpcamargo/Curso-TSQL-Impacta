@@ -1,0 +1,10 @@
+version: "1.0"
+services:
+  db:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    environment:
+      - ACCEPT_EULA=Y
+      - SA_PASSWORD=h%G52#Mu5e
+      - USER=sqlImpacta
+    ports:
+      - "3309:3309"
